@@ -85,8 +85,32 @@ class Timer extends React.Component {
     const stop = e => {
       this.stopTimer();
     };
+    return (
+      <div>
+        <h2> {title} </h2>
+
+        <button onClick={start}> start </button>
+        <button onClick={stop}> stop </button>
+
+        <p> {this.state.date.toLocaleTimeString()}</p>
+       
+      </div>
+    );
+  }
+  // componentDidMount
+  startTimer() {
+    this.timer = setInterval(() => {
+      this.setState({
+        date: new Date()
+      });
+    }, 1000);
+  }
+  //componentWillUnmount
+  stopTimer() {
+    clearInterval(this.timer);
   }
 }
+
 // VISTA
 /**
  * Para mostrar el html con React creo las const(que son como funciones);
@@ -114,7 +138,7 @@ const ShowPlayer = ({ player }) => {
 };
 // etiquetas
 
-const Header = ({ model , timer}) => {
+const Header = ({ model }) => {
   return (
     <div className="header">
       <div className="stats">
@@ -138,7 +162,7 @@ const Header = ({ model , timer}) => {
       </h1>
       <div className="stopwatch">
         <h2>STOPWATCH</h2>
-        <div className="stopwatch-time">{timer.star}</div>
+        <div className="stopwatch-time"><Timer/></div>
         <div>
           <button>
             <strong>START</strong>
@@ -148,6 +172,7 @@ const Header = ({ model , timer}) => {
           </button>
         </div>
       </div>
+      
     </div>
   );
 };
@@ -205,7 +230,7 @@ const Form = ({ model }) => {
   );
 };
 let model = new Model(AllPlayers);
-let timer = new Timer ();
+let timer = new Timer();
 // creo la etiqueta que contiene las demás etiquetas
 const TableroScore = ({ title, model }) => {
   return (
