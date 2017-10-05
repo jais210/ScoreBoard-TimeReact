@@ -88,12 +88,9 @@ class Timer extends React.Component {
     return (
       <div>
         <h2> {title} </h2>
-
         <button onClick={start}> start </button>
         <button onClick={stop}> stop </button>
-
         <p> {this.state.date.toLocaleTimeString()}</p>
-       
       </div>
     );
   }
@@ -163,14 +160,14 @@ const Header = ({ model }) => {
       <div className="stopwatch">
         <h2>STOPWATCH</h2>
         <div className="stopwatch-time"><Timer/></div>
-        <div>
+        {/* <div>
           <button>
             <strong>START</strong>
           </button>
           <button>
             <strong>RESET</strong>
           </button>
-        </div>
+        </div> */}
       </div>
       
     </div>
