@@ -85,11 +85,18 @@ class Timer extends React.Component {
     const stop = e => {
       this.stopTimer();
     };
+
+    const reset = e => {
+      this.clearTime(()=>{
+        0
+      });
+    };
     return (
       <div>
         <h2> {title} </h2>
         <button onClick={start}> start </button>
         <button onClick={stop}> stop </button>
+        <button onClick={reset}>reset </button>
         <p> {this.state.date.toLocaleTimeString()}</p>
       </div>
     );
@@ -100,7 +107,7 @@ class Timer extends React.Component {
       this.setState({
         date: new Date()
       });
-    }, 1000);
+    }, 1);
   }
   //componentWillUnmount
   stopTimer() {
@@ -159,7 +166,9 @@ const Header = ({ model }) => {
       </h1>
       <div className="stopwatch">
         <h2>STOPWATCH</h2>
-        <div className="stopwatch-time"><Timer/></div>
+        <div className="stopwatch-time">
+          <Timer />
+        </div>
         {/* <div>
           <button>
             <strong>START</strong>
@@ -169,7 +178,6 @@ const Header = ({ model }) => {
           </button>
         </div> */}
       </div>
-      
     </div>
   );
 };
