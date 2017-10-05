@@ -87,9 +87,7 @@ class Timer extends React.Component {
     };
 
     const reset = e => {
-      this.clearTime(()=>{
-        
-      });
+      this.clearTimer();
     };
     return (
       <div>
@@ -113,6 +111,14 @@ class Timer extends React.Component {
   stopTimer() {
     clearInterval(this.timer);
   }
+  clearTimer(){
+    this.timer = setInterval(() => {
+      this.setState({
+        date: new Date(0,0,0,0)
+      });
+    }, 0);
+  }
+
 }
 
 // VISTA
