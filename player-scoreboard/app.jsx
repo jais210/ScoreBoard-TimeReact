@@ -88,7 +88,7 @@ class Timer extends React.Component {
 
     const reset = e => {
       this.clearTime(()=>{
-        0
+        
       });
     };
     return (
