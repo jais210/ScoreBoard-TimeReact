@@ -1,7 +1,7 @@
 "use strict";
-// MODEL
+// MODEL0
 const AllPlayers = [
-  // array of objects
+  // arreglo de objetos
   {
     name: "Jim Hokins",
     score: 31,
@@ -18,10 +18,10 @@ const AllPlayers = [
     id: 3
   }
 ];
-// class of Model for my other components
-class Model {
-  constructor(players) {
-    this.players = players; // players have my array of  objects and will be call with  New
+
+class Model { // declaro mi clase, para luego acceder a ella
+  constructor(players) { // método constructor crear e inicializar un objeto creado por una clase
+    this.players = players; // players tiene a mi arreglo de objetos que será instanciado cuando se construya la clase con dicho parámetro
     this.inputValue = null;
   }
 
@@ -69,7 +69,7 @@ class Model {
     this.notify();
   }
 }
-// class for timer
+// Clase Especial 
 class Timer extends React.Component {
   constructor() {
     super();
@@ -94,9 +94,7 @@ class Timer extends React.Component {
   }
 
   stop(){
-    clearInterval(this.addTime);
-    
-        
+    clearInterval(this.addTime);         
   }
   
  
