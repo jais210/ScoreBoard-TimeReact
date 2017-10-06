@@ -71,33 +71,32 @@ class Model {
 }
 // class for timer
 class Timer extends React.Component {
-  constructor(props) {
-    super(props);
-      this.time = {
-      counter: 0,
-    };
+  constructor() {
+    super();
+      this.state = {
+      counter: 0      
+    }
   }
 
   init(){
-    this.timer = setInterval(()=>{
-      this.setState((prevTime)=>({
-        counter:prevTime.counter +1
-      }))
-    }, 1000);
-    this.setState();
+    this.addTime = setInterval(()=>{
+      this.setState((prevState)=>({
+        counter:prevState.counter +1
+      }));
+    }, 1000)
+  
   }
 
   reset(){
     this.setState({
-      counter:0
+      counter: 0
     });
   }
 
   stop(){
-    clearInterval(this.timer);
-    this.setState({
-      counter: 0
-    });
+    clearInterval(this.addTime);
+    
+        
   }
   
  
@@ -106,10 +105,10 @@ class Timer extends React.Component {
       <div className="stopwatch">
       <h2>STOPWATCH</h2>
       <div className="stopwatch-time">
-       {this.time.counter}
+       {this.state.counter}
       </div>
       <div>
-        <button onClick={this.time.counter === 0? ()=>this.init()}>
+        <button onClick={()=>this.init()}>
           <strong>START</strong>
         </button>
         <button onClick={()=>this.reset()}>
