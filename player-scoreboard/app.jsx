@@ -73,53 +73,57 @@ class Model {
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      date: new Date()
+      this.time = {
+      counter: 0,
     };
   }
-  render() {
-    const { title } = this.props;
-    const start = e => {
-      this.startTimer();
-    };
-    const stop = e => {
-      this.stopTimer();
-    };
 
-    const reset = e => {
-      this.clearTimer();
-    };
+  init(){
+    this.timer = setInterval(()=>{
+      this.setState((prevTime)=>({
+        counter:prevTime.counter +1
+      }))
+    }, 1000);
+    this.setState();
+  }
+
+  reset(){
+    this.setState({
+      counter:0
+    });
+  }
+
+  stop(){
+    clearInterval(this.timer);
+    this.setState({
+      counter: 0
+    });
+  }
+  
+ 
+  render() {
     return (
-      <div>
-        <h2> {title} </h2>
-        <button onClick={start}> start </button>
-        <button onClick={stop}> stop </button>
-        <button onClick={reset}>reset </button>
-        <p> {this.state.date.toLocaleTimeString()}</p>
+      <div className="stopwatch">
+      <h2>STOPWATCH</h2>
+      <div className="stopwatch-time">
+       {this.time.counter}
       </div>
+      <div>
+        <button onClick={this.time.counter === 0? ()=>this.init()}>
+          <strong>START</strong>
+        </button>
+        <button onClick={()=>this.reset()}>
+          <strong >RESET</strong>
+        </button>
+        <button onClick={()=>this.stop()}>
+          <strong> STOP </strong> 
+        </button>
+      </div>
+    </div>
     );
   }
-  // componentDidMount
-  startTimer() {
-    this.timer = setInterval(() => {
-      this.setState({
-        date: new Date()
-      });
-    }, 1);
-  }
-  //componentWillUnmount
-  stopTimer() {
-    clearInterval(this.timer);
-  }
-  clearTimer(){
-    this.timer = setInterval(() => {
-      this.setState({
-        date: new Date(0,0,0,0)
-      });
-    }, 0);
-  }
+}  
 
-}
 
 // VISTA
 /**
@@ -170,20 +174,7 @@ const Header = ({ model }) => {
       <h1>
         <strong>{model.title}</strong>
       </h1>
-      <div className="stopwatch">
-        <h2>STOPWATCH</h2>
-        <div className="stopwatch-time">
-          <Timer />
-        </div>
-        {/* <div>
-          <button>
-            <strong>START</strong>
-          </button>
-          <button>
-            <strong>RESET</strong>
-          </button>
-        </div> */}
-      </div>
+      <Timer />
     </div>
   );
 };
