@@ -1,7 +1,7 @@
 "use strict";
-// MODEL
+// MODEL0
 const AllPlayers = [
-  // array of objects
+  // arreglo de objetos
   {
     name: "Jim Hokins",
     score: 31,
@@ -18,10 +18,10 @@ const AllPlayers = [
     id: 3
   }
 ];
-// class of Model for my other components
-class Model {
-  constructor(players) {
-    this.players = players; // players have my array of  objects and will be call with  New
+
+class Model { // declaro mi clase, para luego acceder a ella
+  constructor(players) { // método constructor crear e inicializar un objeto creado por una clase
+    this.players = players; // players tiene a mi arreglo de objetos que será instanciado cuando se construya la clase con dicho parámetro
     this.inputValue = null;
   }
 
@@ -69,51 +69,58 @@ class Model {
     this.notify();
   }
 }
-// class for timer
+// Clase Especial 
 class Timer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date()
-    };
+  constructor() {
+    super();
+      this.state = {
+      counter: 0      
+    }
   }
-  render() {
-    const { title } = this.props;
-    const start = e => {
-      this.startTimer();
-    };
-    const stop = e => {
-      this.stopTimer();
-    };
 
-    const reset = e => {
-      this.clearTime(()=>{
-        
-      });
-    };
+  init(){
+    this.addTime = setInterval(()=>{
+      this.setState((prevState)=>({
+        counter:prevState.counter +1
+      }));
+    }, 1000)
+  
+  }
+
+  reset(){
+    this.setState({
+      counter: 0
+    });
+  }
+
+  stop(){
+    clearInterval(this.addTime);         
+  }
+  
+ 
+  render() {
     return (
-      <div>
-        <h2> {title} </h2>
-        <button onClick={start}> start </button>
-        <button onClick={stop}> stop </button>
-        <button onClick={reset}>reset </button>
-        <p> {this.state.date.toLocaleTimeString()}</p>
+      <div className="stopwatch">
+      <h2>STOPWATCH</h2>
+      <div className="stopwatch-time">
+       {this.state.counter}
       </div>
+      <div>
+        <button onClick={()=>this.init()}>
+          <strong>START</strong>
+        </button>
+        <button onClick={()=>this.reset()}>
+          <strong >RESET</strong>
+        </button>
+        <button onClick={()=>this.stop()}>
+          <strong> STOP </strong> 
+        </button>
+      </div>
+    </div>
     );
   }
-  // componentDidMount
-  startTimer() {
-    this.timer = setInterval(() => {
-      this.setState({
-        date: new Date()
-      });
-    }, 1);
-  }
-  //componentWillUnmount
-  stopTimer() {
-    clearInterval(this.timer);
-  }
-}
+}  
+
 
 // VISTA
 /**
@@ -164,20 +171,7 @@ const Header = ({ model }) => {
       <h1>
         <strong>{model.title}</strong>
       </h1>
-      <div className="stopwatch">
-        <h2>STOPWATCH</h2>
-        <div className="stopwatch-time">
-          <Timer />
-        </div>
-        {/* <div>
-          <button>
-            <strong>START</strong>
-          </button>
-          <button>
-            <strong>RESET</strong>
-          </button>
-        </div> */}
-      </div>
+      <Timer />
     </div>
   );
 };
